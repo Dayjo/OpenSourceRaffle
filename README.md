@@ -1,5 +1,5 @@
 # Simple Raffle Number Picker
-This is a simple raffle number picker. It is written in Javascript and uses Math.random to pick a random number between 1 and the specified number of tickets.
+This is a simple raffle number picker. It is written in Javascript and uses Math.random to pick a random number between 1 and the specified number of tickets. It stores the picked numbers in an array so that they cannot be picked again.
 
 ## How to install
 1. Clone the repository
