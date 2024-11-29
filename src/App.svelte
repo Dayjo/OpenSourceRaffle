@@ -13,6 +13,7 @@
   let finalNumber = 0;
   let showFireworks = false; // New state for fireworks
   let isFinalFlash = false; // Add new state variable
+  let startRange = 0; // New variable for starting range
   
   async function generateResult() {
     if (drawnNumbers.length >= ticketCount) {
@@ -23,7 +24,9 @@
     isDrawing = true;
     showFireworks = false;
     isFinalFlash = false;
-    let availableNumbers = [...Array(ticketCount)].map((_, i) => i + 1)
+    
+    // Recalculate available numbers each time
+    let availableNumbers = [...Array(ticketCount)].map((_, i) => startRange + i + 1)
     .filter(num => !drawnNumbers.includes(num));
     
     // Animate through random numbers (excluding drawn ones)
@@ -36,15 +39,17 @@
     finalNumber = availableNumbers[Math.floor(Math.random() * availableNumbers.length)];
     $displayNumber = finalNumber; // Show the final number after flashing
     
+    // Update drawn numbers immediately after final number is drawn
+    drawnNumbers = [...drawnNumbers, finalNumber];
+    
     await new Promise(r => setTimeout(r, 500));
     isDrawing = false;
     showFireworks = true; // Trigger fireworks
     isFinalFlash = true;
     
-    // Wait for fireworks animation before updating drawn numbers
+    // Wait for fireworks animation before resetting final flash
     await new Promise(r => setTimeout(r, 2000));
     isFinalFlash = false;
-    drawnNumbers = [...drawnNumbers, finalNumber]; // Moved this here
   }
 
   function resetDrawn() {
@@ -60,6 +65,17 @@
   <div class="container">
     <h1>Raffle Picker</h1>
     
+    <div class="input-group">
+      <label for="startRange">Starting range:</label>
+      <input 
+        type="number" 
+        id="startRange" 
+        min="1" 
+        bind:value={startRange}
+        disabled={isDrawing && !isFinalFlash}
+      >
+    </div>
+
     <div class="input-group">
       <label for="tickets">Number of tickets:</label>
       <input 
