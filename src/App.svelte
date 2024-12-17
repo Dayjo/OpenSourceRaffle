@@ -245,13 +245,13 @@
     font-size: 5rem;
     font-weight: bold;
     color: #00000078;
-    text-shadow: 2px 2px 1px #FFFFFF, 0px 0px 10px #000000;
+    text-shadow: 2px 2px 1px #00000055, 0px 0px 10px #000000;
     position: relative;
     z-index: 2;
   }
 
   .number.drawing {
-    color: #322e34be;
+    color: #fff;
   }
 
   .number.final-flash {
